@@ -13,7 +13,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import com.truemart.authorization.annotation.CurrentUser;
 import com.truemart.config.Constants;
 import com.truemart.domain.User;
-import com.truemart.gateway.client.UserServiceClient;
+import com.truemart.gateway.client.IUserServiceClient;
 
 
 /**
@@ -26,7 +26,7 @@ import com.truemart.gateway.client.UserServiceClient;
 public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Autowired
-    private UserServiceClient userServiceClient;
+    private IUserServiceClient userServiceClient;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {

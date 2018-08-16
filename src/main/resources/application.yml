@@ -7,11 +7,11 @@ spring:
     name: service-gateway
 zuul:
   routes:
-    api-user:
-      path: /api-user/**
+    user-api:
+      path: /user-api/**
       serviceId: service-user
-    api-product:
-      path: /api-product/**
+    product-api:
+      path: /product-api/**
       serviceId: service-product
     api-stock:
       path: /api-stock/**

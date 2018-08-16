@@ -16,8 +16,8 @@ import com.truemart.common.enums.ResultCodeEnums;
 import com.truemart.common.response.Result;
 import com.truemart.common.response.ResultGenerator;
 import com.truemart.common.util.StringUtils;
-import com.truemart.permissions.api.dto.ResourcePermissionsInfo;
-import com.truemart.permissions.api.interfaces.ResourcePermissionsServiceClient;
+import com.truemart.gateway.client.IResourcePermissionsServiceClient;
+import com.truemart.permissions.api.dto.ResourcePermissionsInfoDTO;
 
 /**
  * @author zhoulei
@@ -27,18 +27,18 @@ import com.truemart.permissions.api.interfaces.ResourcePermissionsServiceClient;
 public class ResourcePermissionsController {
 	
 	@Autowired
-    private ResourcePermissionsServiceClient resourcePermissionsServiceClient;
+    private IResourcePermissionsServiceClient resourcePermissionsServiceClient;
 	
 	
 	@RequestMapping(value="/findResourcePermissionsListByUserId/{userId}",method = RequestMethod.POST)
-	public Result<List<ResourcePermissionsInfo>> findResourcePermissionsListByUserId(@PathVariable("userId") String userId){
+	public Result<List<ResourcePermissionsInfoDTO>> findResourcePermissionsListByUserId(@PathVariable("userId") String userId){
 		/*String userName=user.getUserName();
 		String password=user.getPassword();*/
 		Assert.notNull(userId, "userId can not be empty");
 		if(StringUtils.isEmpty(userId)) {
 			return ResultGenerator.failure(ResultCodeEnums.PARAM_IS_BLANK);
 		}
-	    Result<List<ResourcePermissionsInfo>> result= resourcePermissionsServiceClient.findResourcePermissionsListByUserId(userId);
+	    Result<List<ResourcePermissionsInfoDTO>> result= resourcePermissionsServiceClient.findResourcePermissionsListByUserId(userId);
 		return result;
 	}
 	

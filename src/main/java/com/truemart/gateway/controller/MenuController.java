@@ -16,8 +16,8 @@ import com.truemart.common.enums.ResultCodeEnums;
 import com.truemart.common.response.Result;
 import com.truemart.common.response.ResultGenerator;
 import com.truemart.common.util.StringUtils;
-import com.truemart.permissions.api.dto.MenuInfo;
-import com.truemart.permissions.api.interfaces.MenuServiceClient;
+import com.truemart.gateway.client.IMenuServiceClient;
+import com.truemart.permissions.api.dto.MenuInfoDTO;
 
 /**
  * @author zhoulei
@@ -27,18 +27,18 @@ import com.truemart.permissions.api.interfaces.MenuServiceClient;
 public class MenuController {
 	
 	@Autowired
-    private MenuServiceClient menuServiceClient;
+    private IMenuServiceClient menuServiceClient;
 	
 	
-	@RequestMapping(value="/findMenuListByUserId/{userId}",method = RequestMethod.POST)
-	public Result<List<MenuInfo>> findMenuListByUserId(@PathVariable("userId") String userId){
+	@RequestMapping(value="/{version}/findMenuListByUserId/{userId}",method = RequestMethod.POST)
+	public Result<List<MenuInfoDTO>> findMenuListByUserId(@PathVariable("version") String version,@PathVariable("userId") String userId){
 		/*String userName=user.getUserName();
 		String password=user.getPassword();*/
 		Assert.notNull(userId, "userId can not be empty");
 		if(StringUtils.isEmpty(userId)) {
 			return ResultGenerator.failure(ResultCodeEnums.PARAM_IS_BLANK);
 		}
-	    Result<List<MenuInfo>> result=menuServiceClient.findMenuListByUserId(userId);
+	    Result<List<MenuInfoDTO>> result=menuServiceClient.findMenuListByUserId(version,userId);
 		return result;
 	}
 	

@@ -26,10 +26,10 @@ import com.truemart.authorization.model.TokenModel;
 import com.truemart.common.enums.ResultCodeEnums;
 import com.truemart.common.response.Result;
 import com.truemart.config.Constants;
-import com.truemart.gateway.client.UserServiceClient;
-import com.truemart.permissions.api.dto.ResourcePermissionsInfo;
-import com.truemart.permissions.api.dto.UserInfo;
-import com.truemart.permissions.api.interfaces.ResourcePermissionsServiceClient;
+import com.truemart.gateway.client.IResourcePermissionsServiceClient;
+import com.truemart.gateway.client.IUserServiceClient;
+import com.truemart.permissions.api.dto.ResourcePermissionsInfoDTO;
+import com.truemart.permissions.api.dto.UserInfoDTO;
 
 /**
  * @author ZENGXP2
@@ -53,13 +53,13 @@ public class AccessTokenFilter extends ZuulFilter {
     private TokenManager tokenManager;
 	
 	@Autowired
-    private UserServiceClient userServiceClient;
+    private IUserServiceClient userServiceClient;
 	
 	@Autowired
-	private ResourcePermissionsServiceClient resourcePermissionsServiceClient;
+	private IResourcePermissionsServiceClient resourcePermissionsServiceClient;
 
 	@Override
-	public Object run() {
+	public Object run() {  
 
 		try {
 
@@ -117,7 +117,7 @@ public class AccessTokenFilter extends ZuulFilter {
 		      }
 		        
 		    String userId=model.getUserId();
-		    Result<UserInfo> result=userServiceClient.getUserByUserId(userId);
+		    Result<UserInfoDTO> result=userServiceClient.getUserByUserId(userId);
 		    if(result.getCode()!=ResultCodeEnums.SUCCESS.code()){
 		    	logger.warn("认证失败,非法用户");
 			     //过滤该请求，不往下级服务去转发请求，到此结束  
@@ -128,7 +128,7 @@ public class AccessTokenFilter extends ZuulFilter {
 			    return null;  
 		    }
 		    //资源访问权限控制
-		    Result<List<ResourcePermissionsInfo>> resourcePermissionsInfoListResult = resourcePermissionsServiceClient.findResourcePermissionsListByUserId(userId);
+		    Result<List<ResourcePermissionsInfoDTO>> resourcePermissionsInfoListResult = resourcePermissionsServiceClient.findResourcePermissionsListByUserId(userId);
 		    if(resourcePermissionsInfoListResult.getCode()!=ResultCodeEnums.SUCCESS.code()){
 		    	logger.warn("认证失败,资源权限服务查询错误");
 			     //过滤该请求，不往下级服务去转发请求，到此结束  

@@ -15,8 +15,8 @@ import com.truemart.authorization.model.TokenModel;
 import com.truemart.common.enums.ResultCodeEnums;
 import com.truemart.common.response.Result;
 import com.truemart.common.response.ResultGenerator;
-import com.truemart.gateway.client.UserServiceClient;
-import com.truemart.permissions.api.dto.UserInfo;
+import com.truemart.gateway.client.IUserServiceClient;
+import com.truemart.permissions.api.dto.UserInfoDTO;
 
 /**
  * @author ZENGXP2
@@ -26,18 +26,18 @@ import com.truemart.permissions.api.dto.UserInfo;
 public class LoginController {
 	
 	@Autowired
-    private UserServiceClient userServiceClient;
+    private IUserServiceClient userServiceClient;
 	
 	@Autowired
     private TokenManager tokenManager;
 	
 	@RequestMapping(value="/login",method = RequestMethod.POST)
-	public Result<UserInfo> login(@RequestParam("userName") String userName, @RequestParam("password") String password){
+	public Result<UserInfoDTO> login(@RequestParam("userName") String userName, @RequestParam("password") String password){
 		/*String userName=user.getUserName();
 		String password=user.getPassword();*/
 		Assert.notNull(userName, "username can not be empty");
 	    Assert.notNull(password, "password can not be empty");
-	    Result<UserInfo> result=userServiceClient.login(userName, password);
+	    Result<UserInfoDTO> result=userServiceClient.login(userName, password);
 	    if(result.getCode().intValue()==ResultCodeEnums.SUCCESS.code().intValue()){
 	    	 //生成一个token，保存用户登录状态
 	        TokenModel model = tokenManager.createToken(result.getData().getUserId());
