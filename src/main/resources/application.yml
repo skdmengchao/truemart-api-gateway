@@ -1,0 +1,46 @@
+server:
+  port: 8769
+spring:
+  profiles:
+    active: dev
+  application:
+    name: service-gateway
+zuul:
+  routes:
+    api-user:
+      path: /api-user/**
+      serviceId: service-user
+    api-product:
+      path: /api-product/**
+      serviceId: service-product
+    api-stock:
+      path: /api-stock/**
+      serviceId: service-stock    
+    api-gateway:
+      path: /api-gateway/**
+      serviceId: service-gateway
+    api-order:
+      path: /api-order/**
+      serviceId: service-order
+    api-oms:
+      path: /api-oms/**
+      serviceId: service-oms
+    api-pay:
+      path: /api-pay/**
+      serviceId: service-pay
+    api-permissions:
+      path: /api-permissions/**
+      serviceId: service-permissions
+    api-tms:
+      path: /api-tms/**
+      serviceId: service-tms
+    api-wms:
+      path: /api-wms/**
+      serviceId: service-wms
+  add-host-header: true
+feign:
+  hystrix:
+    enabled: true
+ribbon:  
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
