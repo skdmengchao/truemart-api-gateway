@@ -7,9 +7,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.truemart.common.enums.ResultCodeEnums;
@@ -30,7 +29,7 @@ public class MenuController {
     private IMenuServiceClient menuServiceClient;
 	
 	
-	@RequestMapping(value="/{version}/findMenuListByUserId/{userId}",method = RequestMethod.POST)
+	@GetMapping(value="/{version}/menu/{userId}")
 	public Result<List<MenuInfoDTO>> findMenuListByUserId(@PathVariable("version") String version,@PathVariable("userId") String userId){
 		/*String userName=user.getUserName();
 		String password=user.getPassword();*/

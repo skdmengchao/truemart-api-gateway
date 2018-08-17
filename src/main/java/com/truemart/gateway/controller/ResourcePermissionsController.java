@@ -7,9 +7,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.truemart.common.enums.ResultCodeEnums;
@@ -30,15 +29,15 @@ public class ResourcePermissionsController {
     private IResourcePermissionsServiceClient resourcePermissionsServiceClient;
 	
 	
-	@RequestMapping(value="/findResourcePermissionsListByUserId/{userId}",method = RequestMethod.POST)
-	public Result<List<ResourcePermissionsInfoDTO>> findResourcePermissionsListByUserId(@PathVariable("userId") String userId){
+	@GetMapping(value="/{version}/resourcePermissions/{userId}")
+	public Result<List<ResourcePermissionsInfoDTO>> findResourcePermissionsListByUserId(@PathVariable("version") String version,@PathVariable("userId") String userId){
 		/*String userName=user.getUserName();
 		String password=user.getPassword();*/
 		Assert.notNull(userId, "userId can not be empty");
 		if(StringUtils.isEmpty(userId)) {
 			return ResultGenerator.failure(ResultCodeEnums.PARAM_IS_BLANK);
 		}
-	    Result<List<ResourcePermissionsInfoDTO>> result= resourcePermissionsServiceClient.findResourcePermissionsListByUserId(userId);
+	    Result<List<ResourcePermissionsInfoDTO>> result= resourcePermissionsServiceClient.findResourcePermissionsListByUserId(version,userId);
 		return result;
 	}
 	

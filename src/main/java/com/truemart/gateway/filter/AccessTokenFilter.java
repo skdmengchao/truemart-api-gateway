@@ -117,7 +117,7 @@ public class AccessTokenFilter extends ZuulFilter {
 		      }
 		        
 		    String userId=model.getUserId();
-		    Result<UserInfoDTO> result=userServiceClient.getUserByUserId(userId);
+		    Result<UserInfoDTO> result=userServiceClient.getUserByUserId("v1",userId);
 		    if(result.getCode()!=ResultCodeEnums.SUCCESS.code()){
 		    	logger.warn("认证失败,非法用户");
 			     //过滤该请求，不往下级服务去转发请求，到此结束  
@@ -128,7 +128,7 @@ public class AccessTokenFilter extends ZuulFilter {
 			    return null;  
 		    }
 		    //资源访问权限控制
-		    Result<List<ResourcePermissionsInfoDTO>> resourcePermissionsInfoListResult = resourcePermissionsServiceClient.findResourcePermissionsListByUserId(userId);
+		   /* Result<List<ResourcePermissionsInfoDTO>> resourcePermissionsInfoListResult = resourcePermissionsServiceClient.findResourcePermissionsListByUserId("v1",userId);
 		    if(resourcePermissionsInfoListResult.getCode()!=ResultCodeEnums.SUCCESS.code()){
 		    	logger.warn("认证失败,资源权限服务查询错误");
 			     //过滤该请求，不往下级服务去转发请求，到此结束  
@@ -137,7 +137,7 @@ public class AccessTokenFilter extends ZuulFilter {
 				Integer code=ResultCodeEnums.INTERFACE_INNER_INVOKE_ERROR.code();
 				context.setResponseBody("{\"code\":"+code+",\"msg\":\"认证失败,内部系统接口调用异常\"}");  
 			    return null;  
-		    }
+		    }*/
 		    boolean authorizationResult = true;
 		  /*  List<ResourcePermissionsInfo> resourcePermissionsInfoList = resourcePermissionsInfoListResult.getData();
 		    for (ResourcePermissionsInfo resourcePermissionsInfo : resourcePermissionsInfoList) {
