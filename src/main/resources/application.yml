@@ -4,39 +4,39 @@ spring:
   profiles:
     active: dev
   application:
-    name: service-gateway
+    name: gateway-microservice
 zuul:
   routes:
-    api-user:
-      path: /api-user/**
-      serviceId: service-user
-    api-product:
-      path: /api-product/**
-      serviceId: service-product
-    api-stock:
-      path: /api-stock/**
-      serviceId: service-stock    
-    api-gateway:
-      path: /api-gateway/**
-      serviceId: service-gateway
-    api-order:
-      path: /api-order/**
-      serviceId: service-order
-    api-oms:
-      path: /api-oms/**
-      serviceId: service-oms
-    api-pay:
-      path: /api-pay/**
-      serviceId: service-pay
-    api-permissions:
-      path: /api-permissions/**
-      serviceId: service-permissions
-    api-tms:
-      path: /api-tms/**
-      serviceId: service-tms
-    api-wms:
-      path: /api-wms/**
-      serviceId: service-wms
+    user-api:
+      path: /user-api/**
+      serviceId: user-microservice
+    product-api:
+      path: /product-api/**
+      serviceId: product-microservice
+    stock-api:
+      path: /stock-api/**
+      serviceId: stock-microservice    
+    gateway-api:
+      path: /gateway-api/**
+      serviceId: gateway-microservice
+    order-api:
+      path: /order-api/**
+      serviceId: order-microservice
+    oms-api:
+      path: /oms-api/**
+      serviceId: oms-microservice
+    pay-api:
+      path: /pay-api/**
+      serviceId: pay-microservice
+    permissions-api:
+      path: /permissions-api/**
+      serviceId: permissions-microservice
+    tms-api:
+      path: /tms-api/**
+      serviceId: tms-microservice
+    wms-api:
+      path: /wms-api/**
+      serviceId: wms-microservice
   add-host-header: true
 feign:
   hystrix:

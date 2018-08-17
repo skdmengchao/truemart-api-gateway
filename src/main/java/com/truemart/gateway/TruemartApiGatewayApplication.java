@@ -16,7 +16,7 @@ import com.truemart.gateway.filter.AccessTokenFilter;
 @ComponentScan(basePackages="com.truemart")
 @EnableZuulProxy
 @EnableEurekaClient
-@EnableFeignClients(basePackages={"com.truemart.*.api.interfaces","com.truemart.gateway.client"})
+@EnableFeignClients
 @EnableHystrix
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 public class TruemartApiGatewayApplication {
